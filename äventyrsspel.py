@@ -1,10 +1,7 @@
 import random
 
-#Meny text
-print("1. Visa egenskaper")
-print("2. Visa Ryggsäck")
-print("3. Välj en dörr")
-
+#Spel startar
+Game = True
 
 
 #Egenskaper
@@ -40,26 +37,37 @@ items = [Kniv,Hammare,Nål,Rep,Penna,Svärd,Pilbåge,Yxa,Glock,Shotgun,Granat,Ka
 
 Ryggsäck = []
 
-hitta_kista = Ryggsäck.append(items)
-
 visa_egenskaper = (f"STK: {STK}\nHP: {HP}\nLVL: {LVL}")
 visa_invetory = (f"{Ryggsäck}")
-välj_dörr = 
+
+#Funktion för att välja dörr
+def välj_dörr(dörr):
+    odds = [1,1,2,2,2,3,3,3,3,3]
     
+    if dörr == "höger":
+
+    return 
+
+#Spel loop
+
 while Game is True:
 
 #Visa menyn
+    print("1. Visa egenskaper")
+    print("2. Visa Ryggsäck")
+    print("3. Välj en dörr")
+
     def visa_meny(val):
         if val == 1:
-            print(f"{visa_egenskaper}")
+            print(f"\nDina egenskaper:\n{visa_egenskaper}\n")
         elif val == 2:
-            print(f"{visa_invetory}")
+            print(f"\n{Ryggsäck}\n")
         elif val == 3:
-            print(f"{välj_dörr}")
+            riktning = input("\nVilken dörr vill du gå igenom?:\n'Höger'\n'Vänster'\n'Framåt'\n----> ").lower()
+            välj_dörr(riktning)
         else:
             print("Du måste ange antingen 1, 2 eller 3")
         return val
-val = int(input("Ange nummer 1-3 ---> "))
-visa_meny(val)
-
-    #Ryggsäck
+    
+    val = int(input("Ange nummer 1-3 ---> "))
+    visa_meny(val)
