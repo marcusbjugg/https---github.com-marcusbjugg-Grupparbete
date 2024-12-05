@@ -32,15 +32,21 @@ def add_weapon_to_ryggsäck(weapon_name,  strength_level):
 
 
 visa_egenskaper = (f"STK: {STK}\nHP: {HP}\nLVL: {LVL}")
-visa_invetory = (f"{Ryggsäck}")
+visa_invetory = (f"{ryggsäck}")
 
 #Funktion för att välja dörr
 def välj_dörr(dörr):
     odds = [1,1,2,2,2,3,3,3,3,3]
-    
-    if dörr == "höger":
+    bakom_dörr = odds[random.randint(0,10)]
+    if bakom_dörr == 1:
+        överaskning = "Fälla"
+    elif bakom_dörr == 2:
+        överaskning = "Kista"
+    elif bakom_dörr == 3 :
+        överaskning = "monster"
+            
 
-    return 
+        return överaskning
 
 #Spel loop
 
