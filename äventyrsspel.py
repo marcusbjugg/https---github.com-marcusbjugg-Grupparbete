@@ -10,32 +10,26 @@ HP = 10
 LVL = 1
 
 
-Game = True # Så länge true spelas spelet
+weapons = {
+    1: ["Kniv", "Hammare", "Nål", "Penna", "Rep"],
+    2: ["Svärd", "Pilbåge", "Yxa"],
+    3: ["Glock", "Shotgun", "Granat"],
+    4: ["Kalaschnikov", "Eldkastare"],
+    5: ["Tank"]
+}
 
-#Olika vapens styrka
-Kniv = 1
-Hammare = 1
-Nål = 1
-Penna = 1
-Rep = 1
+ryggsäck = []
+max_backpack_size = 5    
+
+def get_random_weapon():
+    strength_level = random.randint(1, 5)
+    weapon_name = random.choice(weapons[strength_level])
+    return weapon_name, strength_level
+
+def add_weapon_to_ryggsäck(weapon_name,  strength_level):
+    return ryggsäck
 
 
-Svärd = 2
-Pilbåge = 2
-Yxa = 2
-
-Glock = 3
-Shotgun = 3
-Granat = 3
-
-Kalaschnikov = 4
-Eldkastare = 4
-
-Tank = 5
-
-items = [Kniv,Hammare,Nål,Rep,Penna,Svärd,Pilbåge,Yxa,Glock,Shotgun,Granat,Kalaschnikov,Eldkastare,Tank]
-
-Ryggsäck = []
 
 visa_egenskaper = (f"STK: {STK}\nHP: {HP}\nLVL: {LVL}")
 visa_invetory = (f"{Ryggsäck}")
