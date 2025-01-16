@@ -22,12 +22,13 @@ ryggsäck = []
 max_backpack_size = 5    
 
 def get_random_weapon():
-    strength_level = random.randint(1, 5)
+    strength_level = random.randint(1, 6)
     weapon_name = random.choice(weapons[strength_level])
     return weapon_name, strength_level
 
 def add_weapon_to_ryggsäck(weapon_name,  strength_level):
-    return ryggsäck
+    
+    return ryggsäck, visa_egenskaper
 
 
 
