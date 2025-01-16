@@ -9,9 +9,6 @@ STK = 5
 HP = 10
 LVL = 1
 
-
-Game = True # Så länge true spelas spelet
-
 #Olika vapens styrka
 Kniv = 1
 Hammare = 1
@@ -43,10 +40,16 @@ visa_invetory = (f"{Ryggsäck}")
 #Funktion för att välja dörr
 def välj_dörr(dörr):
     odds = [1,1,2,2,2,3,3,3,3,3]
-    
-    if dörr == "höger":
+    bakom_dörr = odds[random.randint(0,10)]
+    if bakom_dörr == 1:
+        överaskning = "Fälla"
+    elif bakom_dörr == 2:
+        överaskning = "Kista"
+    elif bakom_dörr == 3 :
+        överaskning = "monster"
+            
 
-    return 
+        return överaskning
 
 #Spel loop
 
