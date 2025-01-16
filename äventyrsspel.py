@@ -55,14 +55,14 @@ while Game is True:
 
 #Visa menyn
     print("1. Visa egenskaper")
-    print("2. Visa Ryggsäck")
+    print("2. Visa ryggsäck")
     print("3. Välj en dörr")
 
     def visa_meny(val):
         if val == 1:
             print(f"\nDina egenskaper:\n{visa_egenskaper}\n")
         elif val == 2:
-            print(f"\n{Ryggsäck}\n")
+            print(f"\n{ryggsäck}\n")
         elif val == 3:
             riktning = input("\nVilken dörr vill du gå igenom?:\n'Höger'\n'Vänster'\n'Framåt'\n----> ").lower()
             välj_dörr(riktning)
