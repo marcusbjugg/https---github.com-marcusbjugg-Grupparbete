@@ -66,6 +66,30 @@ for i in p:
     add_weapon_to_ryggsäck(my_weapon[0], my_weapon[1])
     print(STK)
 
+# Strid funktionen som kopplas till sista välj_dörr funktionen (Asså yäni monster)
+def strid_med_monster():
+    monster_str = random.randint(1, 10) 
+    print(f"Du mötter ett monster med STR {monster_str}!")
+
+    spelarens_str = sum(STK)
+    print(f"Din STR är {spelarens_str}.")
+
+    if spelarens_str > monster_str:
+        print("Du vann över monstret, du går upp i nivå.")
+        LVL += 1  
+        if LVL >= 10:
+            print("Grattis, du har nått nivå 10 och vunnit spelet!")
+            global Game
+            Game = False  
+    elif spelarens_str < monster_str:
+        print(f"Monstret besegrade dig, du förlorar 1 HP.")
+        HP[0] -= 1
+        if HP[0] <= 0:
+            print("Du har förlorat all din HP, spelet är över")
+            global Game
+            Game = False  
+    else:
+        print("Striden blev oavgjort, inget händer.")
 
 visa_egenskaper = (f"STK: {sum(STK)}\nHP: {sum(HP)}\nLVL: {LVL}")
 visa_invetory = (f"{ryggsäck}")
@@ -74,12 +98,25 @@ visa_invetory = (f"{ryggsäck}")
 def välj_dörr(dörr):
     odds = [1,1,2,2,2,3,3,3,3,3]
     bakom_dörr = odds[random.randint(0,10)]
-    if bakom_dörr == 1:
-        överaskning = "Fälla"
-    elif bakom_dörr == 2:
+
+# Fälla, förlorar 1-3 HP om man stötter på en.
+    if bakom_dörr == 1:  
+        skada = random.randint(1, 3) 
+        HP[0] -= skada
+        print(f"Du gick på en fälla och tog {skada} skada")
+        if HP[0] <= 0:
+            print("Du har förlorat all din HP. Spelet är över")
+            global Game
+            Game = False
+        else:
+            print(f"Du har nu {HP[0]} HP kvar.")
+
+    elif bakom_dörr == 2: #Marcus du får koppla den här till my_weapon, för du skrev koden, vill inte fucka upp nåt
         överaskning = "Kista"
+
     elif bakom_dörr == 3 :
-        överaskning = "monster"
+        print("Du mötte ett monster, gör dig redo för strid.")
+        strid_med_monster() 
             
 
         return överaskning
