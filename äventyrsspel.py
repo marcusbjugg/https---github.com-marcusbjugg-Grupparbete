@@ -9,33 +9,30 @@ STK = 5
 HP = 10
 LVL = 1
 
-#Olika vapens styrka
-Kniv = 1
-Hammare = 1
-Nål = 1
-Penna = 1
-Rep = 1
+
+weapons = {
+    1: ["Kniv", "Hammare", "Nål", "Penna", "Rep"],
+    2: ["Svärd", "Pilbåge", "Yxa"],
+    3: ["Glock", "Shotgun", "Granat"],
+    4: ["Kalaschnikov", "Eldkastare"],
+    5: ["Tank"]
+}
+
+ryggsäck = []
+max_backpack_size = 5    
+
+def get_random_weapon():
+    strength_level = random.randint(1, 5)
+    weapon_name = random.choice(weapons[strength_level])
+    return weapon_name, strength_level
+
+def add_weapon_to_ryggsäck(weapon_name,  strength_level):
+    return ryggsäck
 
 
-Svärd = 2
-Pilbåge = 2
-Yxa = 2
-
-Glock = 3
-Shotgun = 3
-Granat = 3
-
-Kalaschnikov = 4
-Eldkastare = 4
-
-Tank = 5
-
-items = [Kniv,Hammare,Nål,Rep,Penna,Svärd,Pilbåge,Yxa,Glock,Shotgun,Granat,Kalaschnikov,Eldkastare,Tank]
-
-Ryggsäck = []
 
 visa_egenskaper = (f"STK: {STK}\nHP: {HP}\nLVL: {LVL}")
-visa_invetory = (f"{Ryggsäck}")
+visa_invetory = (f"{ryggsäck}")
 
 #Funktion för att välja dörr
 def välj_dörr(dörr):
@@ -57,14 +54,14 @@ while Game is True:
 
 #Visa menyn
     print("1. Visa egenskaper")
-    print("2. Visa Ryggsäck")
+    print("2. Visa ryggsäck")
     print("3. Välj en dörr")
 
     def visa_meny(val):
         if val == 1:
             print(f"\nDina egenskaper:\n{visa_egenskaper}\n")
         elif val == 2:
-            print(f"\n{Ryggsäck}\n")
+            print(f"\n{ryggsäck}\n")
         elif val == 3:
             riktning = input("\nVilken dörr vill du gå igenom?:\n'Höger'\n'Vänster'\n'Framåt'\n----> ").lower()
             välj_dörr(riktning)
