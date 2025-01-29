@@ -19,34 +19,50 @@ class Player:
         spelare.inventory = []
 
     def get_random_weapon(spelare):
-        strength_level = random.randint(1, 5)
-        weapon_name = random.choice(weapons[strength_level])
-        print(f"Du hittade: {weapon_name} med en strength bonus på: {strength_level}")
-        return weapon_name, strength_level
+        while True:
+            strength_level = random.randint(1, 5)
+            weapon_name = random.choice(weapons[strength_level])
+            
+            if not any(item.name == weapon_name for item in spelare.inventory):
+                print(f"Du hittade: {weapon_name} med en strength bonus på: {strength_level}")
+                return weapon_name, strength_level 
 
     def add_weapon_to_inventory(spelare, weapon):
         if len(spelare.inventory) < max_backpack_size:
             spelare.inventory.append(weapon)
         else:
-            print("Ryggsäcken är full. Du måste ta bort ett föremål,")
-            print([str(item) for item in spelare.inventory])
-            remove = input("Ange vad i ryggsäcken du vill ta bort -> ").lower()
-            spelare.remove_weapon(remove)
-            spelare.inventory.append(weapon)
-            print("Nu har,", remove,"tagits bort från listan.\nNu ser listan ut så här:")
-            print([str(item) for item in spelare.inventory])
+            while True:
+                print("Ryggsäcken är full. Du måste antingen välja att byta ett vapen eller att behålla ditt inventory.")
+                print([str(item) for item in spelare.inventory])
+                byta_val = input("Vill du byta? Ja/Nej ==> ").lower()
+                if byta_val == "ja":
+                    spelare.remove_weapon()
+                    spelare.inventory.append(weapon)
+                    print(f"Nu har, {spelare.remove} tagits bort från listan.\nNu ser listan ut så här:")
+                    print([str(item) for item in spelare.inventory])
+                    return
+                elif byta_val == "nej":
+                    print("Du behåller ditt inventory")
+                    return
+                else:
+                    print("Du måste svara antingen (Ja) eller (Nej)")
 
     def add_strength_level(spelare, strength):
         spelare.strength += strength
         return spelare.strength
     
-    def remove_weapon(spelare, remove):
-        for item in spelare.inventory:
-            if item.name.lower() == remove.lower():
-                spelare.inventory.remove(item)
-                spelare.strength -= item.strength_bonus
-                return
-    
+    def remove_weapon(spelare):
+        while True:
+
+            spelare.remove = input("Ange vad i ryggsäcken du vill ta bort -> ").lower()
+            for item in spelare.inventory:
+                if item.name.lower() == spelare.remove.lower():
+                    spelare.inventory.remove(item)
+                    spelare.strength -= item.strength_bonus
+                    return spelare.remove
+            print(f"{spelare.remove}, finns inte i ditt inventory. Se till att du har skrivit rätt.")
+
+               
     def visa_egenskaper(spelare):
         print(f"STR:{spelare.strength}\nHP:{spelare.hp}\nLVL:{spelare.level}")
 
@@ -66,20 +82,6 @@ class Item:
         return f"{item.name} (Styrka: {item.strength_bonus})"
         
 spelare = Player(strength = 5, hp = 10)
-
-def styrka_remove(remove):
-    styrka_tabort = 0
-    if remove == ("kniv", "hammare", "nål", "penna", "rep"):
-        styrka_tabort = 1
-    elif remove == ("svärd", "pilbåge", "yxa"):
-        styrka_tabort = 2
-    elif remove == ("glock", "shotgun", "granat"):
-        styrka_tabort = 3
-    elif remove == ("kalaschnikov", "eldkastare"):
-        styrka_tabort = 4
-    elif remove == ("tank"):
-        styrka_tabort = 5
-    return styrka_tabort
 
 # Strid funktionen som kopplas till sista välj_dörr funktionen (Asså yäni monster)
 def strid_med_monster():
@@ -109,11 +111,19 @@ def strid_med_monster():
 
 #Funktion för att välja dörr
 def välj_dörr():
-    odds = [2,2,2,2,2,2,2,2,2,2]
-    bakom_dörr = odds[random.randint(0,9)]
-    överaskning = None
+    while True:
+        riktning = input("\nVilken dörr vill du gå igenom?:\n'Höger'\n'Vänster'\n'Framåt'\n----> ").lower()
+        if riktning in ["vänster", "höger", "framåt"]:
+            odds = [1,1,2,2,2,3,3,3,3,3]
+            bakom_dörr = odds[random.randint(0,9)]
+            överaskning = None
+            break
+        else:
+           print("Du måste ange riktningen (höger), (vänster) eller (framåt). OBS! Inga mellanslag.")
+            
 
 # Fälla, förlorar 1-3 HP om man stötter på en.
+
     if bakom_dörr == 1:  
         skada = random.randint(1, 3) 
         spelare.ta_skada(skada)
@@ -135,8 +145,6 @@ def välj_dörr():
     elif bakom_dörr == 3 :
         print("Du mötte ett monster, gör dig redo för strid.")
         strid_med_monster() 
-            
-
         return överaskning
 
 #Spel loop
@@ -149,16 +157,22 @@ while Game is True:
     print("3. Välj en dörr")
 
     def visa_meny(val):
-        if val == 1:
+        if val == "1":
             spelare.visa_egenskaper()
-        elif val == 2:
+        elif val == "2":
             print([str(item) for item in spelare.inventory])
-        elif val == 3:
-            riktning = input("\nVilken dörr vill du gå igenom?:\n'Höger'\n'Vänster'\n'Framåt'\n----> ").lower()
+        elif val == "3":
             välj_dörr()
         else:
             print("Du måste ange antingen 1, 2 eller 3")
         return val
-    
-    val = int(input("Ange nummer 1-3 ---> "))
-    visa_meny(val)
+    def val():
+        while True:
+            val = (input("Ange nummer 1-3 ---> "))
+            if val == "1" or "2" or "3":
+                return val
+            else: 
+                print("Du måste ange antingen (1), (2), eller(3)")
+
+    meny_val = val()        
+    visa_meny(meny_val)
