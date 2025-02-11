@@ -10,14 +10,14 @@ weapons = {
     4: ["kalaschnikov", "eldkastare"],
     5: ["tank"]
 }
-
+#klass för player
 class Player:
     def __init__(spelare, strength, hp, level = 1):
         spelare.strength = strength
         spelare.hp = hp
         spelare.level = level
         spelare.inventory = []
-
+#slumpar fram ett vapebn
     def get_random_weapon(spelare):
         while True:
             strength_level = random.randint(1, 5)
@@ -26,12 +26,13 @@ class Player:
             if not any(item.name == weapon_name for item in spelare.inventory):
                 print(f"Du hittade: {weapon_name} med en strength bonus på: {strength_level}")
                 return weapon_name, strength_level 
-
+#lägger till vapnet i inventory
     def add_weapon_to_inventory(spelare, weapon):
         if len(spelare.inventory) < max_backpack_size:
             spelare.inventory.append(weapon)
         else:
             while True:
+                #låter dig byta vapen om ryggsäcken är full eller behålla ditt inventory
                 print("Ryggsäcken är full. Du måste antingen välja att byta ett vapen eller att behålla ditt inventory.")
                 print([str(item) for item in spelare.inventory])
                 byta_val = input("Vill du byta? Ja/Nej ==> ").lower()
@@ -46,11 +47,11 @@ class Player:
                     return
                 else:
                     print("Du måste svara antingen (Ja) eller (Nej)")
-
+#lägger till styrka i spelarens styrkanivå
     def add_strength_level(spelare, strength):
         spelare.strength += strength
         return spelare.strength
-    
+#tar bort ett vapen ur inventoryt
     def remove_weapon(spelare):
         while True:
 
@@ -62,7 +63,7 @@ class Player:
                     return spelare.remove
             print(f"{spelare.remove}, finns inte i ditt inventory. Se till att du har skrivit rätt.")
 
-               
+#visar spelarens HP STR och LVL               
     def visa_egenskaper(spelare):
         print(f"STR:{spelare.strength}\nHP:{spelare.hp}\nLVL:{spelare.level}")
 
@@ -73,6 +74,7 @@ class Player:
         spelare.hp -= skada
 
         pass
+#item klass
 class Item:
     def __init__(item, name, strength_bonus):
         item.name = name
@@ -134,14 +136,14 @@ def välj_dörr():
             Game = False
         else:
             print(f"Du har nu {spelare.hp} HP kvar.")
-
-    elif bakom_dörr == 2: #Marcus du får koppla den här till my_weapon, för du skrev koden, vill inte fucka upp nåt
+# Det slumpas fram ett random vapen som du kan lägga i ditt inventory
+    elif bakom_dörr == 2: 
         överaskning = "Kista"
         weapon, strength = spelare.get_random_weapon()
         ny_item = Item(weapon, strength)
         spelare.add_weapon_to_inventory(ny_item)
         spelare.add_strength_level(strength)
-
+#en strid med ett monster kommer utföras
     elif bakom_dörr == 3 :
         print("Du mötte ett monster, gör dig redo för strid.")
         strid_med_monster() 
