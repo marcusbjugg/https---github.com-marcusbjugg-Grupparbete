@@ -88,7 +88,7 @@ spelare = Player(strength = 5, hp = 10)
 # Strid funktionen som kopplas till sista välj_dörr funktionen (Asså yäni monster)
 def strid_med_monster():
     global Game
-    monster_str = random.randint(1, 10) 
+    monster_str = random.randint(1, 20) 
     print(f"Du mötter ett monster med STR {monster_str}!")
 
     print(f"Din STR är {spelare.strength}.")
